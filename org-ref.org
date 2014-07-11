@@ -990,7 +990,7 @@ Now we create the completion function. This works from the org-machinery, e.g. i
 (defun org-eqref-complete-link (&optional arg)
   "Completion function for ref links"
   (let ((label))
-    (setq label (completing-read "label: " (org-ref-get-labels)))
+    (setq label (completing-read "label: " (org-ref-get-labels) nil t nil nil))
     (format "eqref:%s" label)))
 #+END_SRC
 
