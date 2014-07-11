@@ -984,7 +984,17 @@ This is just the LaTeX ref for equations. On export, the reference is enclosed i
     ((eq format 'latex)
      (format "\\eqref{%s}" keyword)))))
 #+END_SRC
+Now we create the completion function. This works from the org-machinery, e.g. if you type C-c C-l to insert a link, and use completion by pressing tab.
 
+#+BEGIN_SRC emacs-lisp  :tangle org-ref.el
+(defun org-eqref-complete-link (&optional arg)
+  "Completion function for ref links"
+  (let ((label))
+    (setq label (completing-read "label: " (org-ref-get-labels)))
+    (format "eqref:%s" label)))
+#+END_SRC
+
+Alternatively, you may want to just call a function that inserts a link with completion:
 
 ** cite
 This is the main reason this library exists. We want the following behavior. A cite link should be able to contain multiple bibtex keys. You should be able to click on the link, and get a brief citation of the entry for that key, and a menu of options to open the bibtex file, open a pdf if you have it, open your notes on the entry, or open a url if it exists. You should be able to insert new references onto an existing cite link, or create new ones easily. The following code implements these features.
